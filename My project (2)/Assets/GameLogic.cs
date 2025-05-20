@@ -47,6 +47,7 @@ public class GameLogic : MonoBehaviour
     void Start()
     {
         animator= inputDisplay.GetComponent<Animator>();
+        animator.SetBool("isCountered", false);
         PlayerLogic.SetHealth(100);
         PlayerLogic.SetPushback(0);
         // on start, create list of all the possible buttons the player could input
@@ -261,6 +262,7 @@ public class GameLogic : MonoBehaviour
         {
             PlayerLogic.isAmbushed = false;
             MonsterLogic.isCountered = true;
+            animator.SetBool("isCountered", true);
         }
     }
     public IEnumerator DecayHealth(float delay)
