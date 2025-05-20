@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 106027140}
   - component: {fileID: 106027144}
   - component: {fileID: 106027143}
+  - component: {fileID: 106027145}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -228,10 +229,12 @@ MonoBehaviour:
   healthBar: {fileID: 1650325992}
   pushbackBar: {fileID: 280059214}
   isAmbushed: 0
+  underAttack: 0
   Health: 100
   MaxHealth: 100
   Pushback: 0
   MaxPushback: 100
+  animator: {fileID: 0}
 --- !u!61 &106027144
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -278,6 +281,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.3, y: 0.67}
   m_EdgeRadius: 0
+--- !u!95 &106027145
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106027139}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5bb5f7cc9cb58b0488fccc04d5b4faee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &148397985 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 950589613330602806, guid: 65872461b71a5f44c9f18276c361a839, type: 3}
@@ -448,7 +473,7 @@ RectTransform:
   m_GameObject: {fileID: 280059210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.77503, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 184238530}
@@ -456,7 +481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -652, y: 62.43051}
+  m_AnchoredPosition: {x: -579, y: 28.056}
   m_SizeDelta: {x: 50, y: 407}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &280059212
@@ -1601,7 +1626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 106027139}
-  monster: {fileID: 0}
+  monster: {fileID: 1826794624}
   inputDisplay: {fileID: 376049500}
   progressMeter: {fileID: 0}
   chosenButton: {fileID: 0}
@@ -1661,7 +1686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -344, y: -267.59006}
+  m_AnchoredPosition: {x: -159, y: -199}
   m_SizeDelta: {x: 92, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650325992
@@ -1970,6 +1995,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd74538f384782478f7d53ffda20279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalInput: 0
+  moveSpeed: 5
+  jumpPower: 5
+  rb: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!50 &1826794631
 Rigidbody2D:
   serializedVersion: 5
@@ -2011,6 +2041,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAmbushing: 0
   isCountered: 0
+  monster: {fileID: 1826794624}
+  player: {fileID: 106027139}
 --- !u!1 &1946477886
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MonsterMovement : MonoBehaviour
 {
-    float horizontalInput;
-    float moveSpeed = 5f;
+    public float horizontalInput;
+    public float moveSpeed = 5f;
     bool isFacingRight = false;
-    float jumpPower = 5f;
+    public float jumpPower = 5f;
     bool isGrounded = false;
 
-    Rigidbody2D rb;
-    Animator animator;
+    public Rigidbody2D rb;
+    public Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,7 +23,7 @@ public class MonsterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
+        //horizontalInput = Input.GetAxis("Horizontal");
 
         FlipSprite();
 
@@ -34,7 +34,7 @@ public class MonsterMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
     }
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         rb.linearVelocity = new Vector2 (horizontalInput * moveSpeed, rb.linearVelocity.y);
         animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocity.x));

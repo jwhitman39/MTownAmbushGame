@@ -8,11 +8,27 @@ public class Player : MonoBehaviour
     private PushbackBarUI pushbackBar;
     // public bool indicating whether player is being attacked or not
     public bool isAmbushed = false;
+    public bool underAttack = false;
     public float Health, MaxHealth, Pushback, MaxPushback;
+    public Animator animator;
     void Start()
     {
+        animator = GetComponent<Animator>();
         healthBar.SetHealth(MaxHealth);
         pushbackBar.SetMaxPushback(MaxPushback);
+    }
+    private void Update()
+    {
+        if (isAmbushed && !underAttack)
+        {
+            animator.SetBool("isAmbushed", true);
+            underAttack = true;
+        }
+        if (!isAmbushed && underAttack)
+        {
+            animator.SetBool("isAmbushed", false);
+            underAttack = false;
+        }
     }
     public void SetHealth(float healthChange)
     {

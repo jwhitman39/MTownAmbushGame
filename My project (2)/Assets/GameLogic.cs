@@ -24,10 +24,12 @@ public class GameLogic : MonoBehaviour
     Animator animator;
     PlayerControls controls;
     Player PlayerLogic = null;
+    Monster MonsterLogic = null;
 
     private void Awake()
     {
         PlayerLogic = player.GetComponent<Player>(); 
+        MonsterLogic = monster.GetComponent<Monster>();
         controls = new PlayerControls();
         controls.Gameplay.PressA.performed += ctx => PressA();
         controls.Gameplay.PressB.performed += ctx => PressB();
@@ -50,13 +52,17 @@ public class GameLogic : MonoBehaviour
         // on start, create list of all the possible buttons the player could input
         CompileButtons();
         CreateInput();
-        StartCoroutine(DecayHealth(2f));
+        if(MonsterLogic.isCountered == false)
+        {
+            StartCoroutine(DecayHealth(2f));
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         ConfirmButtons();
+        ConfirmPushBack();
     }
 
     private void OnEnable()
@@ -248,12 +254,24 @@ public class GameLogic : MonoBehaviour
             }
         }
     }
+    public void ConfirmPushBack()
+    {
+        // if the Pushback meter gets to 100...
+        if (PlayerLogic.Pushback == 100)
+        {
+            PlayerLogic.isAmbushed = false;
+            MonsterLogic.isCountered = true;
+        }
+    }
     public IEnumerator DecayHealth(float delay)
     {
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(delay);
-            PlayerLogic.SetHealth(-10);
+            if (!MonsterLogic.isCountered)
+                {
+                    PlayerLogic.SetHealth(-12);
+                }
         }
     }
 }
